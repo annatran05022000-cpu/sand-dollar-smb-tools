@@ -1,0 +1,21 @@
+{{ define "main" }}
+<div class="container">
+  <div class="page-header">
+    <h1>Sand Dollar SMB Tools</h1>
+    <p>Best tools for small business owners: CRM, invoicing, scheduling, and productivity stack reviews.</p>
+  </div>
+  {{ $posts := where .Site.RegularPages "Type" "posts" }}
+  <div class="bento-grid">
+    {{ range $i, $p := $posts }}
+    <div class="bento-card{{ if eq $i 0 }} wide{{ end }}">
+      <div class="label">{{ index $p.Params.tags 0 | default "Article" }}</div>
+      {{ if eq $i 0 }}<h2><a href="{{ $p.Permalink }}">{{ $p.Title }}</a></h2>
+      <p class="desc">{{ $p.Description | default $p.Summary | truncate 130 }}</p>
+      {{ else }}<h3><a href="{{ $p.Permalink }}">{{ $p.Title }}</a></h3>
+      <p class="desc">{{ $p.Description | default $p.Summary | truncate 80 }}</p>{{ end }}
+      <div class="date">{{ $p.Date.Format "Jan 2, 2006" }}</div>
+    </div>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

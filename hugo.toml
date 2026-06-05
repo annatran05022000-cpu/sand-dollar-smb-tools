@@ -1,0 +1,16 @@
+
+baseURL = "/"
+languageCode = "en-us"
+title = "Sand Dollar SMB Tools"
+theme = "custom"
+
+[params]
+  description = "Best tools for small business owners: CRM, invoicing, scheduling, and productivity stack reviews."
+  author = "Editorial Team"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
