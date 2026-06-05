@@ -1,20 +1,26 @@
 {{ define "main" }}
-<div class="container">
-  <div class="page-header">
-    <h1>Sand Dollar SMB Tools</h1>
-    <p>Best tools for small business owners: CRM, invoicing, scheduling, and productivity stack reviews.</p>
-  </div>
-  {{ $posts := where .Site.RegularPages "Type" "posts" }}
-  <div class="bento-grid">
-    {{ range $i, $p := $posts }}
-    <div class="bento-card{{ if eq $i 0 }} wide{{ end }}">
-      <div class="label">{{ index $p.Params.tags 0 | default "Article" }}</div>
-      {{ if eq $i 0 }}<h2><a href="{{ $p.Permalink }}">{{ $p.Title }}</a></h2>
-      <p class="desc">{{ $p.Description | default $p.Summary | truncate 130 }}</p>
-      {{ else }}<h3><a href="{{ $p.Permalink }}">{{ $p.Title }}</a></h3>
-      <p class="desc">{{ $p.Description | default $p.Summary | truncate 80 }}</p>{{ end }}
-      <div class="date">{{ $p.Date.Format "Jan 2, 2006" }}</div>
-    </div>
+<div class="container" style="padding-top:2rem">
+  <h1 class="page-heading">All Articles</h1>
+  <p class="page-sub">{{ .Site.Params.description }}</p>
+  <div class="post-grid" style="margin-top:2rem">
+    {{ range .Pages }}
+    <article class="post-card">
+      <div class="card-thumb" style="background: linear-gradient(135deg, var(--card) 0%, var(--main) 100%);">
+        {{ range first 1 .Params.tags }}<span class="card-category">{{ . }}</span>{{ end }}
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+          <span>&middot;</span>
+          <span>{{ .ReadingTime }} min read</span>
+        </div>
+        <h3 class="card-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+        <p class="card-desc">{{ .Description | default .Summary | truncate 120 }}</p>
+      </div>
+      <div class="card-footer">
+        <a href="{{ .Permalink }}" class="card-link">Read more &rarr;</a>
+      </div>
+    </article>
     {{ end }}
   </div>
 </div>
